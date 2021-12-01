@@ -1,7 +1,5 @@
 #include "mandaw.h"
 
-#define UNASSIGNED_VALUE -1
-
 void initMandaw(Mandaw mandaw, char* title, int width, int height) {
     SDL_Init(SDL_INIT_EVERYTHING);
 
