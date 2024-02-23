@@ -1,22 +1,28 @@
 #pragma once
 
-#include <SDL2/SDL.h>
+// #include <SDL2/SDL.h>
 #include <stdbool.h>
 #include <stdio.h>
 
-typedef struct Mandaw {
-    const char* title;
-    int width;
-    int height;
+typedef struct Mandaw_Core Mandaw_Core;
+typedef struct Mandaw_Window Mandaw_Window;
 
-    bool running;
+typedef struct Mandaw
+{
+    Mandaw_Window *window;
+    Mandaw_Core *core;
 
-    SDL_Window *window;
-    SDL_Renderer *renderer; 
-    SDL_Event event; 
+    void (*at_update)(struct Mandaw *, float, void *);
+    void (*at_draw)(struct Mandaw *, void *);
+    void *user_data;
+
+    bool is_running;
 } Mandaw;
+
+typedef void (*MandawUpdateHandler) (Mandaw *, float, void *);
+typedef void (*ManadwDrawHandler) (Mandaw *, void *);
 
 extern Mandaw mandaw;
 
-extern void initMandaw(Mandaw mandaw, char* title, int width, int height);
-extern void loop(Mandaw mandaw);
+extern void mandaw_init(Mandaw *mandaw, char *title, int width, int height);
+extern void mandaw_run(Mandaw *mandaw);
